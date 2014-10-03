@@ -1,6 +1,5 @@
-var levelState = protos.create({
+var levelState = State.extend({
     name: 'levelstate',
-    _ghastlyjs: {},
 
     init: function() {
         console.log('level state init');

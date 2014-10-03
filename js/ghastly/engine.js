@@ -10,9 +10,10 @@ return requestAnimationFrame ||
 }();
 
 /**
- * Engine handles the game loop
+ * handles the game loop, pause and resum
  *
- * @module  engine
+ * @class engine
+ * @static
  */
 var engine = {
     _fps:      null,

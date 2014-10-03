@@ -1,3 +1,9 @@
+/**
+ * initializes classes, loads initial state/data after dom ready
+ *
+ * @class game
+ * @static
+ */
 var game = {
     start: function(state, data, options) {
         this._state = state;
@@ -8,9 +14,10 @@ var game = {
     },
 
     _onWindowLoad: function() {
-        radio.tuneOut(window, 'load');
+        radio.tuneOut(window, 'load', this._onWindowLoad);
         
         // bootstrap
+        domControl.init();
         engine.init();
         stateControl.init();
 

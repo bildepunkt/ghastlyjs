@@ -1,14 +1,20 @@
 /**
- * Data Control loads assets and parses data objects
+ * loads assets and parses data objects
+ *
+ * @class dataControl
+ * @static
  */
 var dataControl = {
     /**
      * @param {object} group
      * @param {object} entity
      */
-    addEntity: function(group, entity) {
+    parseEntity: function(group, entity) {
         var entityName = entity.name || entity.type + entityCount++;
-        var createdEntity = new entity.type();
+        var createdEntity {
+            name: entityName,
+            entity: new entity.type()
+        };
         var setupProp;
 
         for(setupProp in entity.setup) {
@@ -19,13 +25,20 @@ var dataControl = {
             }
         }
 
-        group[entityName] = createdEntity;
+        group.push(createdEntity);
     },
 
     _onWindowResize: function() {
         this._canvasEntity.width(window.innerWidth);
         this._canvasEntity.height(window.innerHeight);
     },
+
+    _createCanvasEntity: function() {
+        this._canvasEntity = new Shade();
+        this._onWindowResize();
+        radio.tuneIn(window, 'resize', this._onWindowResize, this);
+    },
+
 
     // first step in preparing data
     load: function(data) {
@@ -37,12 +50,6 @@ var dataControl = {
         } else {
             this._onAssetsLoaded();
         }
-    },
-
-    _createCanvasEntity: function() {
-        this._canvasEntity = new Shade();
-        this._onWindowResize();
-        radio.tuneIn(window, 'resize', this._onWindowResize, this);
     },
 
     /**
@@ -64,10 +71,10 @@ var dataControl = {
         parsed.canvasEntity = this._canvasEntity;
 
         for(layer in data.layers) {
-            parsed[layer] = {};
+            parsed[layer] = [];
 
             for(entityIndex = 0; entityIndex < data.layers[layer].length; entityIndex += 1) {
-                this.addEntity(parsed[layer], data.layers[layer][entityIndex]);
+                this.parseEntity(parsed[layer], data.layers[layer][entityIndex]);
             }
         }
 

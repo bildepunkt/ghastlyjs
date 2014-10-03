@@ -1,3 +1,9 @@
+/**
+ * sets up state objects
+ *
+ * @class stateControl
+ * @static
+ */
 var stateControl = {
     states: [],
 

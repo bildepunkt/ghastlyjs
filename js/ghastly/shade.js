@@ -1,8 +1,9 @@
 /**
- * A base class for movable objects
+ * base class for movable objects
+ *
  * @class Shade
  */
-Shade = protos.create({
+var Shade = protos.create({
     /** 
      * @member {string} Shade.prototype.name - the unique name necessary for proto's inheritance
      */
