@@ -6,26 +6,31 @@
  */
 var dataControl = {
     /**
-     * @param {object} group
+     * @param {object} layer
      * @param {object} entity
+     * @param {integer} [depth]  
      */
-    parseEntity: function(group, entity) {
-        var entityName = entity.name || entity.type + entityCount++;
-        var createdEntity {
+    parseEntity: function(layer, dataEntity, depth) {
+        var entityName = dataEntity.name || dataEntity.type + entityCount++;
+        var entityObject = {
             name: entityName,
-            entity: new entity.type()
+            entity: new dataEntity.type()
         };
         var setupProp;
 
-        for(setupProp in entity.setup) {
-            if (typeof createdEntity[setupProp] === 'function') {
-                createdEntity[setupProp](entity[setupProp]);
+        for(setupProp in dataEntity.setup) {
+            if (typeof entityObject.entity[setupProp] === 'function') {
+                entityObject.entity[setupProp](dataEntity[setupProp]);
             } else {
                 throw new Error(entityName + ' has no method called ' + setupProp);
             }
         }
 
-        group.push(createdEntity);
+        if (typeof depth === 'number') {
+            layer.splice(depth, 0, entityObject);
+        } else {
+            layer.push(entityObject);
+        }
     },
 
     _onWindowResize: function() {
@@ -68,7 +73,9 @@ var dataControl = {
         if (!this._canvasEntity) {
             this._createCanvasEntity();
         }
-        parsed.canvasEntity = this._canvasEntity;
+        parsed.canvas = this._canvasEntity;
+
+        parsed.camera = new Camera();
 
         for(layer in data.layers) {
             parsed[layer] = [];

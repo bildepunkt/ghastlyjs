@@ -22,15 +22,6 @@ var Shade = protos.create({
         this._halfHeight = 0;
     },
 
-    _update: function() {
-        // apply velocity
-        this._x += this._vx;
-        this._y += this._vy;
-        // set render x/y
-        this._screenX = this._x;
-        this._screenY = this._y;
-    },
-
     _parseVal: function(n, key) {
         if (typeof n === 'number') {
             this[key] = n;

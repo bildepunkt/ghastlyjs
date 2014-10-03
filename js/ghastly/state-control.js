@@ -16,7 +16,7 @@ var stateControl = {
         radio.broadcast('update', this.states);
 
         for(var i = 0; i < this.states.length; i += 1) {
-            if (!this.states[i]._ghastlyjs.frozen) {
+            if (!this.states[i]._config.frozen) {
                 this.states[i].update();
             }
         }
@@ -32,7 +32,7 @@ var stateControl = {
 
         // next in stack
         currentState = this.states[-1];
-        currentState._ghastlyjs.frozen = false;
+        currentState._config.frozen = false;
         currentState.init();
     },
 
@@ -46,7 +46,7 @@ var stateControl = {
             }
             if (this._options.freeze) {
                 currentState.destroy();
-                currentState._ghastlyjs.frozen = true;
+                currentState._config.frozen = true;
             }
         }
 

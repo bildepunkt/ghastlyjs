@@ -47,13 +47,6 @@ var Sprite = Shade.extend({
         });
     },
 
-    _triggerLevelChange: function(directive) {
-        radio.broadcast('entitydepthchange', {
-            entity: this,
-            directive: directive
-        });
-    },
-
     /**
      * Create object's img and set the source. On image load, @method _onLoad is called which fires an event, adding this entity to the entity pool in @module entityManager
      * @method Sprite.prototype.setImage
@@ -111,7 +104,7 @@ var Sprite = Shade.extend({
     },
 
     /**
-     * If parameter passed set scale (which updates w/h and halfW/halfH), else scale is returned
+     * If parameter passed set scale (rendering handled by @draw), else scale is returned
      * @method Sprite.prototype.scale
      * @return {Sprite|number}
      */
@@ -125,7 +118,7 @@ var Sprite = Shade.extend({
     },
 
     /**
-     * If parameter passed set rotation (rending rotation handled by @module draw), else rotation is returned
+     * If parameter passed set rotation (rendering handled by @draw), else rotation is returned
      * @method Sprite.prototype.rotate
      * @return {Sprite|number}
      */
@@ -151,56 +144,5 @@ var Sprite = Shade.extend({
         } else {
             return this._visible;
         }
-    },
-
-    /**
-     * Brings the entity sorting depth forward by one index
-     * @method Sprite.prototype.bringForward
-     * @return {Sprite}
-     */
-    bringForward: function() {
-        this._triggerLevelChange('bringforward');
-        return this;
-    },
-
-    /**
-     * Brings the entity sorting depth to top
-     * @method Sprite.prototype.bringToFront
-     * @return {Sprite}
-     */
-    bringToFront: function() {
-        this._triggerLevelChange('bringtofront');
-        return this;
-    },
-
-    /**
-     * Sends the entity sorting depth back by one index
-     * @method Sprite.prototype.sendBackward
-     * @return {Sprite}
-     */
-    sendBackward: function() {
-        this._triggerLevelChange('sendbackward');
-        return this;
-    },
-
-    /**
-     * Sends the entity sorting depth to bottom
-     * @method Sprite.prototype.sendToBack
-     * @return {Sprite}
-     */
-    sendToBack: function() {
-        this._triggerLevelChange('sendtoback');
-        return this;
-    },
-
-    /**
-     * Destroys the entity
-     * @method Sprite.prototype.destroy
-     * @fires removeentity - entityManager listens for this event and will remove the entity from the pool
-     */
-    destroy: function() {
-        radio.broadcast('removeentity', {
-            entity: this
-        });
     }
 });
