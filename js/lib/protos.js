@@ -27,12 +27,12 @@ var protos = {
         var superName;
         var prop;
 
-        if (!members.name) {
-            throw new Error('All protos objects need a "name" property for working inheritance');
+        if (!members._name) {
+            throw new Error('All protos objects need a "_name" property for working inheritance');
         }
 
         if (_super) {
-            superName = '$' + _super.name;
+            superName = '$' + _super._name;
             members[superName] = {};
 
             for(prop in _super) {

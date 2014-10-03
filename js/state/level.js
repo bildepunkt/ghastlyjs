@@ -1,5 +1,5 @@
 var levelState = State.extend({
-    name: 'levelstate',
+    _name: 'levelstate',
 
     init: function() {
         console.log('level state init');

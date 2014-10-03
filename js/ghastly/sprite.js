@@ -8,7 +8,7 @@ var Sprite = Shade.extend({
     /** 
      * @member {string} Sprite.prototype.name - the unique name necessary for proto's inheritance
      */
-    name: 'sprite',
+    _name: 'sprite',
 
     init: function() {
         this.$shade.init.call(this);

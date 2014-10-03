@@ -2,7 +2,7 @@
  * controls what is shown on the canvas
  */
 var Camera = Shade.extend({
-    name: 'camera',
+    _name: 'camera',
 
     _zoom: 1,
 

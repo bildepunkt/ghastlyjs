@@ -4,7 +4,7 @@
  * @class State
  */
 var State = protos.create({
-    name: 'state',
+    _name: 'state',
     /**
      * stores config data
      * @member {object} _config
