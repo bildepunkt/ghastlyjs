@@ -1,0 +1,12 @@
+{
+  "name": "ghastlyjs",
+  "version": "0.0.1",
+  "description": "html & canvas game framework",
+  "author": "Chris Peters",
+  "license": "ISC",
+  "devDependencies": {
+    "preloader": "git://github.com/c-concat-p/preloader.git#master",
+    "proto": "git://github.com/c-concat-p/proto.git#master",
+    "radio": "git://github.com/c-concat-p/radio.git#master"
+  }
+}
