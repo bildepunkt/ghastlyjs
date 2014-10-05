@@ -8,7 +8,7 @@ var Sprite = Shade.extend({
     /** 
      * @member {string} Sprite.prototype.name - the unique name necessary for proto's inheritance
      */
-    _name: 'sprite',
+    _protosName: 'sprite',
 
     init: function() {
         this.$shade.init.call(this);
@@ -24,7 +24,7 @@ var Sprite = Shade.extend({
         this._img = null;
         this._src = null;
         this._z = null;
-        this._visible = false;
+        this._visible = true;
     },
 
     _onLoad: function() {

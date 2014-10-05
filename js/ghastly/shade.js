@@ -7,7 +7,7 @@ var Shade = protos.create({
     /** 
      * @member {string} Shade.prototype.name - the unique name necessary for proto's inheritance
      */
-    _name: 'shade',
+    _protosName: 'shade',
 
     init: function() {
         this._x = 0;

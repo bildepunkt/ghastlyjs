@@ -5,13 +5,15 @@
  * @static
  */
 var dataControl = {
+    _entityCount: null,
+
     /**
      * @param {object} layer
      * @param {object} entity
      * @param {integer} [depth]  
      */
-    parseEntity: function(layer, dataEntity, depth) {
-        var entityName = dataEntity.name || dataEntity.type + entityCount++;
+    parseEntity: function(layer, dataEntity) {
+        var entityName = dataEntity.name || dataEntity.type + this._entityCount++;
         var entityObject = {
             name: entityName,
             entity: new dataEntity.type()
@@ -26,23 +28,8 @@ var dataControl = {
             }
         }
 
-        if (typeof depth === 'number') {
-            layer.splice(depth, 0, entityObject);
-        } else {
-            layer.push(entityObject);
-        }
+        layer.entities.push(entityObject);
     },
-
-    _onWindowResize: function() {
-        this._canvasEntity.width(window.innerWidth);
-        this._canvasEntity.height(window.innerHeight);
-    },
-
-    _createCanvasEntity: function() {
-        this._canvasEntity = new Shade();
-        radio.tuneIn(window, 'resize', this._onWindowResize, this);
-    },
-
 
     // first step in preparing data
     load: function(data) {
@@ -60,30 +47,23 @@ var dataControl = {
      * exposes and does setup for entities
      */
     _onAssetsLoaded: function() {
-        var parsed = {};
-        var entityCount = 1;
+        var parsed = {
+            layers: {},
+            camera: new Camera()
+        };
         var data = this._data;
         var entityIndex;
         var layer;
 
+        this._entityCount = 1;
+
         radio.tuneOut(document, 'preloader/assetsloaded', this._onAssetsLoaded);
 
-        // create (if needed) and expose canvas entity
-        if (!this._canvasEntity) {
-            this._createCanvasEntity();
-        }
-        this._onWindowResize();
-        parsed.canvas = this._canvasEntity;
-
-        parsed.camera = new Camera();
-
-        parsed.layers = {};
-
         for(layer in data.layers) {
-            parsed.layers[layer] = [];
+            parsed.layers[layer] = new Layer();
 
-            for(entityIndex = 0; entityIndex < data.layers[layer].length; entityIndex += 1) {
-                this.parseEntity(parsed.layers[layer], data.layers[layer][entityIndex]);
+            for(entityIndex = 0; entityIndex < data.layers[layer].entities.length; entityIndex += 1) {
+                this.parseEntity(parsed.layers[layer], data.layers[layer].entities[entityIndex]);
             }
         }
 

@@ -13,10 +13,6 @@ var stateControl = {
     },
 
     update: function() {
-        //radio.broadcast('update', {
-            states: this.states
-        });
-
         for(var i = 0; i < this.states.length; i += 1) {
             if (!this.states[i]._config.frozen) {
                 this.states[i].update();
@@ -37,19 +33,19 @@ var stateControl = {
         // next in stack
         currentState = this.states[-1];
         currentState._config.frozen = false;
-        currentState.init();
+        currentState.thaw();
     },
 
     _onDataParsed: function(e) {
         var data = e.detail.data;
         var currentState = this.states[-1];
 
-        if (this._options) {
-            if (this._options.remove) {
+        if (currentState && this._options) {
+            if (this._options.removePrevious) {
                 this.pop();
             }
-            if (this._options.freeze) {
-                currentState.destroy();
+            if (this._options.freezePrevious) {
+                currentState.freeze();
                 currentState._config.frozen = true;
             }
         }

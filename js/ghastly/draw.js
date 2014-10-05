@@ -18,59 +18,69 @@ var draw = {
      * @private
      */
     _render: function(e) {
-        if (!e.detail.states.length) {
+        var states = e.detail.states;
+        var statesLen = states.length;
+        var state;
+        var stateIndex;
+        var layer;
+        var entities;
+        var entitiesLen;
+        var entityIndex;
+        var entity;
+        var x, y;
+
+        if (!states.length) {
             return;
         }
 
-        var layers = e.detail[0].layers.actors;
-        var len = entities.length;
-        var entity;
-        var x, y;
-        var i;
+        for (stateIndex = 0; stateIndex < statesLen; stateIndex += 1) {
+            state = states[stateIndex];
 
-        if (!len) {
-            return false;
-        }
+            for (layer in state.layers) {
+                entities = state.layers[layer].entities;
+                entitiesLen = entities.length;
 
-        this.clear().fill('#fff');
+                this.clear().fill('#fff');
 
-        for (i = 0; i < len; i += 1) {
-            entity = entities[i].entity;
+                for (entityIndex = 0; entityIndex < entitiesLen; entityIndex += 1) {
+                    entity = entities[entityIndex].entity;
 
-            this._context.save();
+                    this._context.save();
 
-            if (entity.visible()) {
+                    if (entity.visible()) {
 
-                this._context.globalAlpha = entity._opacity;
+                        this._context.globalAlpha = entity._opacity;
 
-                if (entity._scale !== 1) {
-                    this._context.scale = entity._scale;
+                        if (entity._scale !== 1) {
+                            this._context.scale = entity._scale;
+                        }
+
+                        if (entity._rotation !== 0) {
+                             this._context.translate(entity._screenX + entity._halfWidth, entity._screenY + entity._halfHeight);
+                             this._context.rotate(entity._rotation);
+         
+                             x = -entity._halfWidth;
+                             y = -entity._halfHeight;
+                         } else {
+                             x = entity._screenX;
+                             y = entity._screenY;
+                         }
+
+                        this._context.drawImage(
+                            entity._img,
+                            entity._srcX,
+                            entity._srcY,
+                            entity._srcWidth,
+                            entity._srcHeight,
+                            x, y,
+                            entity._width,
+                            entity._height
+                        );
+                    }
+
+                    this._context.restore();
                 }
-
-                if (entity._rotation !== 0) {
-                     this._context.translate(entity._screenX + entity._halfWidth, entity._screenY + entity._halfHeight);
-                     this._context.rotate(entity._rotation);
- 
-                     x = -entity._halfWidth;
-                     y = -entity._halfHeight;
-                 } else {
-                     x = entity._screenX;
-                     y = entity._screenY;
-                 }
-
-                this._context.drawImage(
-                    entity._img,
-                    entity._srcX,
-                    entity._srcY,
-                    entity._srcWidth,
-                    entity._srcHeight,
-                    x, y,
-                    entity._width,
-                    entity._height
-                );
             }
-
-            this._context.restore();
         }
     },
 

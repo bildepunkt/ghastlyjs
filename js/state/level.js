@@ -1,13 +1,15 @@
 var levelState = State.extend({
-    _name: 'levelstate',
+    _protosName: 'levelstate',
 
     init: function() {
-        console.log('level state init');
+        this.$state.init.call(this);
     },
     update: function() {
         this.$state.update.call(this);
         
         //console.log('level state update');
     },
-    destroy: function() {}
+    destroy: function() {
+        this.$state.destroy.call(this);
+    }
 });
