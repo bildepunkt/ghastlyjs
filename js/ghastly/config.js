@@ -1,5 +1,6 @@
 var config = {
     fps: 30,
-    config: 960,
-    height: 600
+    width: 960,
+    height: 600,
+    backgroundColor: '#444'
 };

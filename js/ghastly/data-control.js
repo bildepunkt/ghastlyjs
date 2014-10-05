@@ -20,7 +20,7 @@ var dataControl = {
 
         for(setupProp in dataEntity.setup) {
             if (typeof entityObject.entity[setupProp] === 'function') {
-                entityObject.entity[setupProp](dataEntity[setupProp]);
+                entityObject.entity[setupProp](dataEntity.setup[setupProp]);
             } else {
                 throw new Error(entityName + ' has no method called ' + setupProp);
             }
@@ -40,7 +40,6 @@ var dataControl = {
 
     _createCanvasEntity: function() {
         this._canvasEntity = new Shade();
-        this._onWindowResize();
         radio.tuneIn(window, 'resize', this._onWindowResize, this);
     },
 
@@ -73,15 +72,18 @@ var dataControl = {
         if (!this._canvasEntity) {
             this._createCanvasEntity();
         }
+        this._onWindowResize();
         parsed.canvas = this._canvasEntity;
 
         parsed.camera = new Camera();
 
+        parsed.layers = {};
+
         for(layer in data.layers) {
-            parsed[layer] = [];
+            parsed.layers[layer] = [];
 
             for(entityIndex = 0; entityIndex < data.layers[layer].length; entityIndex += 1) {
-                this.parseEntity(parsed[layer], data.layers[layer][entityIndex]);
+                this.parseEntity(parsed.layers[layer], data.layers[layer][entityIndex]);
             }
         }
 

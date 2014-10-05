@@ -38,7 +38,7 @@ var Shade = protos.create({
      * @returns {Shade|number}
      */
     x: function(x) {
-        if (x) {
+        if (x !== undefined) {
             this._parseVal(x, '_x');
             return this;
         } else {
@@ -53,7 +53,7 @@ var Shade = protos.create({
      * @returns {Shade|number}
      */
     y: function(y) {
-        if (y) {
+        if (y !== undefined) {
             this._parseVal(y, '_y');
             return this;
         } else {
@@ -68,7 +68,7 @@ var Shade = protos.create({
      * @returns {Shade|number}
      */
     vx: function(vx) {
-        if (vx) {
+        if (vx !== undefined) {
             this._parseVal(vx, '_vx');
             return this;
         } else {
@@ -83,7 +83,7 @@ var Shade = protos.create({
      * @returns {Shade|number}
      */
     vy: function(vy) {
-        if (vy) {
+        if (vy !== undefined) {
             this._parseVal(vy, '_vy');
             return this;
         } else {
@@ -98,7 +98,7 @@ var Shade = protos.create({
      * @returns {Shade|number}
      */
     width: function(width) {
-        if (width) {
+        if (width !== undefined) {
             this._parseVal(width, '_width');
             this._halfWidth = this._width / 2;
             return this;
@@ -114,7 +114,7 @@ var Shade = protos.create({
      * @returns {Shade|number}
      */
     height: function(height) {
-        if (height) {
+        if (height !== undefined) {
             this._parseVal(height, '_height');
             this._halfHeight = this._height / 2;
             return this;

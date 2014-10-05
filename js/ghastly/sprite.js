@@ -67,7 +67,7 @@ var Sprite = Shade.extend({
      * @return {Sprite|number}
      */
     srcWidth: function(n) {
-        if (n) {
+        if (n !== undefined) {
             this._srcWidth = n;
             return this;
         } else {
@@ -81,7 +81,7 @@ var Sprite = Shade.extend({
      * @return {Sprite|number}
      */
     srcHeight: function(n) {
-        if (n) {
+        if (n !== undefined) {
             this._srcHeight = n;
             return this;
         } else {
@@ -95,7 +95,7 @@ var Sprite = Shade.extend({
      * @return {Sprite|number}
      */
     opacity: function(n) {
-        if (n) {
+        if (n !== undefined) {
             this._opacity = n;
             return this;
         } else {
@@ -109,7 +109,7 @@ var Sprite = Shade.extend({
      * @return {Sprite|number}
      */
     scale: function(n) {
-        if (n) {
+        if (n !== undefined) {
             this._scale = n;
             return this;
         } else {

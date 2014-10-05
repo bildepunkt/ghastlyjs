@@ -13,7 +13,9 @@ var stateControl = {
     },
 
     update: function() {
-        radio.broadcast('update', this.states);
+        //radio.broadcast('update', {
+            states: this.states
+        });
 
         for(var i = 0; i < this.states.length; i += 1) {
             if (!this.states[i]._config.frozen) {
@@ -21,7 +23,9 @@ var stateControl = {
             }
         }
 
-        radio.broadcast('render', this.states);
+        radio.broadcast('render', {
+            states: this.states
+        });
     },
 
     pop: function() {

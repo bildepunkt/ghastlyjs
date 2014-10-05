@@ -5,7 +5,9 @@ var levelState = State.extend({
         console.log('level state init');
     },
     update: function() {
-        console.log('level state update');
+        this.$state.update.call(this);
+        
+        //console.log('level state update');
     },
     destroy: function() {}
 });

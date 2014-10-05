@@ -18,8 +18,9 @@ var game = {
         
         // bootstrap
         domControl.init();
-        engine.init();
+        draw.init();
         stateControl.init();
+        engine.init();
 
         stateControl.load(this._state, this._data, this._options);
     }
