@@ -27,6 +27,19 @@ var State = protos.create({
         this.canvas.height(window.innerHeight);
     },
 
+    /**
+     * for use when a new state is loaded and user wants to freeze this one
+     */
+    freeze: function() {},
+
+    /**
+     * for use to return a state from its frozen state
+     */
+    thaw: function() {},
+
+    /**
+     * updates all layers' entity's velocities, camera input, and determines visibility
+     */
     update: function() {
         var layer;
         var i;

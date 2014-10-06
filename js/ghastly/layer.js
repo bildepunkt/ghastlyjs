@@ -12,7 +12,7 @@ var Layer = protos.create({
 
         for(i = 0; i < len; i += 1) {
             if (this.entities[i].name == name) {
-                return this.entities[i];
+                return this.entities[i].entity;
             }
         }
     },
