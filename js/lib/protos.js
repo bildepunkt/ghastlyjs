@@ -18,10 +18,23 @@ var protos = {
     },
 
     create: function(members, _super) {
-        var Alpha = function(args) {
+        var Alpha = function(options) {
+            var prop;
+
+            for (prop in this) {
+                if (typeof this[prop] === 'object' && this[prop] !== null) {
+                    this[prop] = protos.clone(this[prop]);
+                }
+            }
+
+            for (prop in options) {
+                this[prop] = options[prop];
+            }
+
             this._uid = protos._uidCounter++;
+
             if (this.init) {
-                this.init(args);
+                this.init(options);
             }
         };
         var superName;
