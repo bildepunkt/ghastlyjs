@@ -1,11 +1,32 @@
 /**
- *
+ * an object in a state containing entities and config data
+ * @class Layer
  */
 var Layer = protos.create({
     _protosName: 'layer',
 
+    /**
+     * @member {array} entities
+     */
     entities: [],
 
+ /**
+ * @class Layer
+ */
+var Layer = protos.create({
+    /** 
+     * @member {string} Shade.prototype.name - the unique name necessary for proto's inheritance
+     */
+    _protosName: 'layer',
+
+    init: function() {
+        this.entities = [];
+    },
+
+    /**
+     * @param {string} name
+     * @method Layer.prototype.getEntity
+     */
     getEntity: function(name) {
         var len = this.entities.length;
         var i;
@@ -19,6 +40,7 @@ var Layer = protos.create({
 
     /**
      * @param {Sprite} entity
+     * @method Layer.prototype.addEntity
      */
     addEntity: function(entity) {
         dataControl.parseEntity(this, entity);
@@ -27,6 +49,7 @@ var Layer = protos.create({
     /**
      * @param {object} layer
      * @param {Sprite} entity
+     * @method Layer.prototype.removeEntity
      */
     removeEntity: function(entity) {
         var len = this.entities.length;
@@ -45,48 +68,52 @@ var Layer = protos.create({
      * changes an entity's depth
      *
      * @param {Sprite} entity
-     * @param {enum}   directive - allowed values: bringforward, sendback, bringtofront, sendtoback
+     * @param {int} newDepth - 0 for back, -1 for front, or anything inbetween
+     * @method Layer.prototype.setEntityDepth
      */
-    changeEntityDepth: function(entity, directive) {
-        var len = this.entities.length;
+    setEntityDepth: function(entity, newDepth) {
+        // TODO add '++' and '--' as newDepth parameter options
+        var entitiesLen = this.entities.length;
+        var entityObject;
         var depth;
         var i;
 
-        for (i = 0; i < len; i += 1) {
-            if (this.entities[i]._uid === entity._uid) {
+        for (i = 0; i < entitiesLen; i += 1) {
+            if (this.entities[i].entity._uid === entity._uid) {
+                entityObject = this.entities[i];
                 depth = i;
                 break;
             }
         }
 
-        if ((directive === 'bringforward' || directive === 'bringtofront') && depth === this.entities.length -1) {
+        if (newDepth == -1 && depth === this.entities.length -1) {
             return;
         }
-        if ((directive === 'sendbackward' || directive === 'sendtoback') && depth === 0) {
+        if (newDepth === 0 && depth === 0) {
             return;
         }
 
         this.entities.splice(depth, 1);
 
-        switch(directive) {
-            case 'bringforward':
-                depth += 1;
-            break;
-            case 'bringToFront':
-                depth = this.entities.length - 1;
-            break;
-            case 'sendbackward':
-                depth -= 1;
-            break;
-            case 'sendtoback':
-                depth = 0;
-            break;
-        }
-
-        if (depth >= this.entities.length) {
-            this.entities.push(entity);
+        if (newDepth === -1 || newDepth >= this.entities.length) {
+            this.entities.push(entityObject);
         } else {
-            this.entities.splice(depth, 0, entity);
+            this.entities.splice(newDepth, 0, entityObject);
+        }
+    },
+
+    /**
+     * @param {Sprite} entity
+     * @method Layer.prototype.getEntity
+     */
+    getEntityDepth: function(entity) {
+        var entitiesLen = this.entities.length;
+        var i;
+
+        for (i = 0; i < entitiesLen; i += 1) {
+            if (this.entities[i].entity._uid === entity._uid) {
+                return i;
+            }
         }
     },
 });

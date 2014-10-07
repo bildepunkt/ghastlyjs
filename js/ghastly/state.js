@@ -4,14 +4,18 @@
  * @class State
  */
 var State = protos.create({
-    _protosName: 'state',
-    /**
-     * stores config data
-     * @member {object} _config
+    /** 
+     * @member {string} State.prototype.name - the unique name necessary for proto's inheritance
      */
-    _config: {},
+    _protosName: 'state',
 
     init: function() {
+        /**
+         * stores config data
+         * @member {object} _config
+         */
+        this._config = {};
+
         // create and expose canvas entity
         this._createCanvasEntity();
         this._onWindowResize();
@@ -29,16 +33,19 @@ var State = protos.create({
 
     /**
      * for use when a new state is loaded and user wants to freeze this one
+     * @method State.prototype.freeze
      */
     freeze: function() {},
 
     /**
      * for use to return a state from its frozen state
+     * @method State.prototype.thaw
      */
     thaw: function() {},
 
     /**
      * updates all layers' entity's velocities, camera input, and determines visibility
+     * @method State.prototype.update
      */
     update: function() {
         var layer;
@@ -74,6 +81,9 @@ var State = protos.create({
         }
     },
 
+    /**
+     * @method State.prototype.destroy
+     */
     destroy: function() {
         radio.tuneOut(window, 'resize', this._onWindowResize);
     }

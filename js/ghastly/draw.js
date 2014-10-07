@@ -1,7 +1,8 @@
 /**
  * Draw renders entities on the canvas. Handles rotation scale etc.
- * @package Core
- * @module  draw
+ * 
+ * @class draw
+ * @static
  */
 var draw = {
     /**
@@ -36,11 +37,11 @@ var draw = {
         for (stateIndex = 0; stateIndex < statesLen; stateIndex += 1) {
             state = states[stateIndex];
 
+            this.clear().fill('#fff');
+
             for (layer in state.layers) {
                 entities = state.layers[layer].entities;
                 entitiesLen = entities.length;
-
-                this.clear().fill('#fff');
 
                 for (entityIndex = 0; entityIndex < entitiesLen; entityIndex += 1) {
                     entity = entities[entityIndex].entity;
