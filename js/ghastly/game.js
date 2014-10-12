@@ -15,7 +15,7 @@ var game = {
 
     _onWindowLoad: function() {
         radio.tuneOut(window, 'load', this._onWindowLoad);
-        
+
         // bootstrap
         domControl.init();
         draw.init();

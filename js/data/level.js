@@ -1,7 +1,7 @@
 var levelData = {
     assets: [
         'img/Player.png',
-        'img/Baddie.png',
+        'img/Baddie1.png',
         'img/Fire.png',
         'img/Ghost.png'
     ],
@@ -30,13 +30,13 @@ var levelData = {
                     name: 'player',
                     type: Sprite,
                     setup: {
-                        x: 64,
-                        y: 64,
+                        x: 32,
+                        y: 32,
                         setImage: 'img/Player.png',
-                        width: 64,
-                        height: 64,
-                        srcWidth: 64,
-                        srcHeight: 64
+                        width: 32,
+                        height: 32,
+                        srcWidth: 32,
+                        srcHeight: 32
                     }
                 },
                 {
@@ -44,12 +44,12 @@ var levelData = {
                     type: Sprite,
                     setup: {
                         x: 128,
-                        y: 64,
+                        y: 32,
                         setImage: 'img/Ghost.png',
-                        width: 64,
-                        height: 64,
-                        srcWidth: 64,
-                        srcHeight: 64
+                        width: 32,
+                        height: 32,
+                        srcWidth: 32,
+                        srcHeight: 32
                     }
                 },
                 {
@@ -57,12 +57,12 @@ var levelData = {
                     type: Sprite,
                     setup: {
                         x: 192,
-                        y: 64,
-                        setImage: 'img/Baddie.png',
-                        width: 64,
-                        height: 64,
-                        srcWidth: 64,
-                        srcHeight: 64
+                        y: 32,
+                        setImage: 'img/Baddie1.png',
+                        width: 32,
+                        height: 32,
+                        srcWidth: 32,
+                        srcHeight: 32
                     }
                 }
             ]

@@ -17,8 +17,16 @@ var protos = {
         return obj;
     },
 
+    /**
+     * @param {object} members - properties and mwthods for the class
+     * @param {object} [_super] - just used by protos.extend to add super class members
+     */
     create: function(members, _super) {
-        var Alpha = function(options) {
+        /**
+         * @param {object} options - obj to merge into properties
+         * @param {boolean} [noInit] - just used by protos.extend to suppress init call
+         */
+        var Alpha = function(options, noInit) {
             var prop;
 
             for (prop in this) {
@@ -33,7 +41,7 @@ var protos = {
 
             this._uid = protos._uidCounter++;
 
-            if (this.init) {
+            if (this.init && !noInit) {
                 this.init(options);
             }
         };
@@ -70,6 +78,6 @@ var protos = {
     },
 
     extend: function(members) {
-        return protos.create(members, new this());
+        return protos.create(members, new this(null, true));
     }
 };

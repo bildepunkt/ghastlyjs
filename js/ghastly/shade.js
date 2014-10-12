@@ -20,6 +20,10 @@ var Shade = protos.create({
         this._height = 0;
         this._halfWidth = 0;
         this._halfHeight = 0;
+
+        this._factor = 1;
+        this._canvas = null;
+        this._bindings = {};
     },
 
     _parseVal: function(n, key) {
@@ -120,6 +124,104 @@ var Shade = protos.create({
             return this;
         } else {
             return this._height;
+        }
+    },
+
+    /**
+     * @param {number} x - mouse/touch position
+     * @param {number} y - mouse/touch position
+     */
+    _hitPoint: function(x, y) {
+        var canvasCssWidth;
+
+        if (this._canvas.style.width) {
+            canvasCssWidth = parseInt(this._canvas.style.width, 10);
+            this._factor = canvasCssWidth / this._canvas.width;
+        }
+
+        if (x >= this._x * this._factor &&
+            x <= this._x * this._factor + this._width * this._factor &&
+            y >= this._y * this._factor &&
+            y <= this._y * this._factor + this._height * this._factor) {
+            return true;
+        }
+        return false;
+    },
+
+    /**
+     * 
+     */
+    _handler: function(e) {
+        var typeLen = this._bindings[e.type].length;
+        var i;
+
+        for(i = 0; i < typeLen; i += 1) {
+            if (this._hitPoint(e.offsetX, e.offsetY)) {
+                if (this._bindings[e.type][i].boundEntityHandler) {
+                    this._bindings[e.type][i].boundEntityHandler(e);
+                } else {
+                    this._bindings[e.type][i].entityHandler(e);
+                }
+            }
+        }
+    },
+
+    /**
+     * @param {string} type - any DOM input event
+     * @param {function} entityHandler - the event handler
+     * @param {object} [context] - the scope for the entityHandler
+     */
+    bind: function(type, entityHandler, context) {
+        if (!this._canvas) {
+            this._canvas = domControl.getCanvas();
+        }
+
+        if (typeof(this._bindings[type]) === 'undefined' || !this._bindings[type].length) {
+            this._bindings[type] = [];
+            // we add this here so that there is only one dom binding for each event
+            radio.tuneIn(this._canvas, type, this._handler, this);
+        }
+
+        this._bindings[type].push({
+            entityHandler: entityHandler,
+            boundEntityHandler: context ? entityHandler.bind(context) : null
+        });
+    },
+
+    /**
+     * if handler omitted, all bindings will be removed
+     *
+     * @param {string} type - the dom event to unbind
+     * @param {function} [entityHandler] - the event handler
+     */
+    unbind: function(type, entityHandler) {
+        var i;
+
+        if (!this._bindings[type].length) {
+            return false;
+        }
+
+        switch(arguments.length) {
+            case 1:
+                for(i = 0; i < this._bindings[type].length; i += 1) {
+                    this._bindings[type].splice(i, 1);
+                    i -= 1;
+                }
+            break;
+            case 2:
+                // can't use pre-assigned length because of splicing :P
+                for(i = 0; i < this._bindings[type].length; i += 1) {
+                    if (entityHandler === this._bindings[type][i].entityHandler) {
+                        this._bindings[type].splice(i, 1);
+                        break;
+                    }
+                }
+            break;
+        }
+
+        // if last binding, remove dom binding
+        if (!this._bindings[type].length) {
+            radio.tuneOut(this._canvas, type, this._handler);
         }
     }
 });

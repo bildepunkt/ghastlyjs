@@ -10,19 +10,6 @@ var Layer = protos.create({
      */
     entities: [],
 
- /**
- * @class Layer
- */
-var Layer = protos.create({
-    /** 
-     * @member {string} Shade.prototype.name - the unique name necessary for proto's inheritance
-     */
-    _protosName: 'layer',
-
-    init: function() {
-        this.entities = [];
-    },
-
     /**
      * @param {string} name
      * @method Layer.prototype.getEntity

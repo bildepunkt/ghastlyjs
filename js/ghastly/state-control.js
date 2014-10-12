@@ -51,11 +51,7 @@ var stateControl = {
         }
 
         // init method called from constructor
-        currentState = new this._State();
-
-        for(var prop in data) {
-            currentState[prop] = data[prop];
-        }
+        currentState = new this._State(data);
 
         this.states.push(currentState);
     },

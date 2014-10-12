@@ -9,13 +9,13 @@ var State = protos.create({
      */
     _protosName: 'state',
 
-    init: function() {
-        /**
-         * stores config data
-         * @member {object} _config
-         */
-        this._config = {};
+    /**
+     * @member {object} _config
+     */
+    _config: {},
 
+    init: function() {
+        this._domCanvas = domControl.getCanvas();
         // create and expose canvas entity
         this._createCanvasEntity();
         this._onWindowResize();
@@ -27,8 +27,8 @@ var State = protos.create({
     },
 
     _onWindowResize: function() {
-        this.canvas.width(window.innerWidth);
-        this.canvas.height(window.innerHeight);
+        this.canvas.width(parseInt(this._domCanvas.style.width, 10));
+        this.canvas.height(parseInt(this._domCanvas.style.height, 10));
     },
 
     /**
