@@ -5,6 +5,7 @@ var levelData = {
         'img/Fire.png',
         'img/Ghost.png'
     ],
+    backgroundColor: 'rgba(150, 150, 150, 0.5)',
     layers: {
         bg: {
             hud: false,

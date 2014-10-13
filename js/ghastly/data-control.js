@@ -55,9 +55,12 @@ var dataControl = {
         var entityIndex;
         var layer;
 
+        // reset for each state
         this._entityCount = 1;
 
         radio.tuneOut(document, 'preloader/assetsloaded', this._onAssetsLoaded);
+
+        parsed.backgroundColor = data.backgroundColor;
 
         for(layer in data.layers) {
             parsed.layers[layer] = new Layer();

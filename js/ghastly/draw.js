@@ -37,7 +37,7 @@ var draw = {
         for (stateIndex = 0; stateIndex < statesLen; stateIndex += 1) {
             state = states[stateIndex];
 
-            this.clear().fill('#fff');
+            this.clear().fill(state.backgroundColor);
 
             for (layer in state.layers) {
                 entities = state.layers[layer].entities;
