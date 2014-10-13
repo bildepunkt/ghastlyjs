@@ -6,9 +6,19 @@ var levelData = {
         'img/Ghost.png'
     ],
     backgroundColor: 'rgba(150, 150, 150, 0.5)',
+    scroll: {
+        trigger: 'player',
+        base: 'bg',
+        regions: {
+            left: 100,
+            right: 700,
+            top: 100,
+            bottom: 500
+        }
+    },
     layers: {
         bg: {
-            hud: false,
+            scrollDepth: 1,
             entities: [
                 {
                     name: 'bg',
@@ -17,8 +27,8 @@ var levelData = {
                         x: 0,
                         y: 0,
                         setImage: 'img/Fire.png',
-                        width: 800,
-                        height: 600,
+                        width: 1200,
+                        height: 1200,
                         srcWidth: 800,
                         srcHeight: 600
                     }
@@ -26,12 +36,13 @@ var levelData = {
             ]
         },
         actors: {
+            scrollDepth: 1,
             entities: [
                 {
                     name: 'player',
                     type: Sprite,
                     setup: {
-                        x: 32,
+                        x: 512,
                         y: 32,
                         setImage: 'img/Player.png',
                         width: 32,

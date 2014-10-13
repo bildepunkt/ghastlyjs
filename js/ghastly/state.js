@@ -48,20 +48,26 @@ var State = protos.create({
      * @method State.prototype.update
      */
     update: function() {
+        var layerName;
         var layer;
         var i;
 
-        for(layer in this.layers) {
+        if (this.scroll) {
+            this.camera.scroll(this.scroll.trigger, this.scroll.base, this.scroll.regions);
+        }
 
-            for(i = 0; i < this.layers[layer].entities.length; i += 1) {
-                entity = this.layers[layer].entities[i].entity;
+        for(layerName in this.layers) {
+            layer = this.layers[layerName];
+
+            for(i = 0; i < layer.entities.length; i += 1) {
+                entity = layer.entities[i].entity;
 
                 entity._x += entity._vx;
                 entity._y += entity._vy;
 
-                if (!layer.hud) {
-                    entity._x -= this.camera._vx;
-                    entity._y -= this.camera._vy;
+                if (!layer.hud && this.scroll) {
+                    entity._x -= this.camera._vx * layer.scrollDepth;
+                    entity._y -= this.camera._vy * layer.scrollDepth;
                 }
 
                 // set render x/y
@@ -70,7 +76,7 @@ var State = protos.create({
 
                 // determine visibility
                 if (!layer.hud) {
-                        if (entity._screenX + entity._width <= 0 || entity._screenX >= config.width ||
+                    if (entity._screenX + entity._width <= 0 || entity._screenX >= config.width ||
                         entity._screenY + entity._height <= 0 || entity._screenY >= config.height) {
                         entity.visible(false);
                     } else {

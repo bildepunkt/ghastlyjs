@@ -13,10 +13,10 @@ var levelState = State.extend({
     onPlayerClick: function() {
         if (this.right) {
             this.right = false;
-            this.player.vx(2);
+            this.player.vx(6);
         } else {
             this.right = true;
-            this.player.vx(-2);
+            this.player.vx(-6);
         }
     },
 

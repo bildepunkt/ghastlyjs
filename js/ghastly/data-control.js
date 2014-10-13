@@ -62,11 +62,28 @@ var dataControl = {
 
         parsed.backgroundColor = data.backgroundColor;
 
+        parsed.scroll = data.scroll;
+
         for(layer in data.layers) {
             parsed.layers[layer] = new Layer();
 
+            parsed.layers[layer].scrollDepth = data.layers[layer].scrollDepth;
+
             for(entityIndex = 0; entityIndex < data.layers[layer].entities.length; entityIndex += 1) {
                 this.parseEntity(parsed.layers[layer], data.layers[layer].entities[entityIndex]);
+
+                // if not yet found/converted and name is a match
+                if (typeof parsed.scroll.trigger === 'string' &&
+                    parsed.layers[layer].entities[entityIndex].name == parsed.scroll.trigger)
+                {
+                    parsed.scroll.trigger = parsed.layers[layer].entities[entityIndex].entity;
+                }
+
+                if (typeof parsed.scroll.base === 'string' &&
+                    parsed.layers[layer].entities[entityIndex].name == parsed.scroll.base)
+                {
+                    parsed.scroll.base = parsed.layers[layer].entities[entityIndex].entity;
+                }
             }
         }
 
