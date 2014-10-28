@@ -26,19 +26,24 @@ var stateControl = {
 
     pop: function() {
         // top stack
-        var currentState = this.states[-1];
+        var lastIndex = this.states.length - 1;
+        var currentState = this.states[lastIndex];
         currentState.destroy();
         this.states.pop();
 
         // next in stack
-        currentState = this.states[-1];
-        currentState._config.frozen = false;
-        currentState.thaw();
+        lastIndex = this.states.length - 1;
+        currentState = this.states[lastIndex];
+        if (currentState) {
+            currentState._config.frozen = false;
+            currentState.thaw();
+        }
     },
 
     _onDataParsed: function(e) {
         var data = e.detail.data;
-        var currentState = this.states[-1];
+        var lastIndex = this.states.length - 1;
+        var currentState = this.states[lastIndex];
 
         if (currentState && this._options) {
             if (this._options.removePrevious) {
