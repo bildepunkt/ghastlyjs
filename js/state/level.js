@@ -7,21 +7,30 @@ var levelState = State.extend({
         this.right = true;
         this.player = this.layers.actors.getEntity('player');
 
-        this.player.bind('mousedown', this.onPlayerClick, this);
+        this.canvas.bind('mousedown', this.onPlayerMD, this);
+        this.canvas.bind('mouseup', this.onPlayerMU, this);
     },
 
-    onPlayerClick: function() {
-        if (this.right) {
-            this.right = false;
-            this.player.vx(6);
-        } else {
-            this.right = true;
-            this.player.vx(-6);
+    onPlayerMD: function(e) {
+        if (e.offsetX < this.player.x()) {
+            this.player.movingLt = true;
+        } else if (e.offsetX > this.player.x()) {
+            this.player.movingRt = true;
         }
+    },
+
+    onPlayerMU: function() {
+        this.player.movingRt = false;
+        this.player.movingLt = false;
+        this.player.movingUp = false;
+        this.player.movingDn = false;
     },
 
     update: function() {
         this.$state.update.call(this);
+ 
+        this.camera.contain(this.player);
+        this.player.move();
     },
 
     destroy: function() {

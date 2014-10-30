@@ -40,7 +40,7 @@ var levelData = {
             entities: [
                 {
                     name: 'player',
-                    type: Sprite,
+                    type: Phantasm,
                     setup: {
                         x: 512,
                         y: 32,

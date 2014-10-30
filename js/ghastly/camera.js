@@ -15,6 +15,13 @@ var Camera = Shade.extend({
      */
     _scrolling: true,
 
+    init: function() {
+        this.$shade.init.apply(this, arguments);
+
+        this.width(config.width);
+        this.height(config.height);
+    },
+
     /** 
      * @method Camera.prototype.zoom
      */
@@ -65,18 +72,16 @@ var Camera = Shade.extend({
     contain : function(player) {
         var position = {};
 
-        if (player.x < 0) {
-            position.x = 0;
-        } else if (player.x + player.width > this.width) {
-            position.x = this.width - player.width;
+        if (player.x() < 0) {
+            player.x(0);
+        } else if (player.x() + player.width() > this.width()) {
+            player.x(this.width() - player.width());
         }
 
-        if (player.y < 0) {
-            position.y = 0;
-        } else if (player.y + player.height > this.height) {
-            position.y = this.height - player.height;
+        if (player.y() < 0) {
+            player.y(0);
+        } else if (player.y() + player.height() > this.height()) {
+            player.y(this.height() - player.height());
         }
-
-        return position;
     }
 });
