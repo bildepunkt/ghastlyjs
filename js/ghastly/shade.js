@@ -223,5 +223,11 @@ var Shade = protos.create({
         if (!this._bindings[type].length) {
             radio.tuneOut(this._canvas, type, this._handler);
         }
+    },
+
+    destroy: function() {
+        for (var type in this.bindings) {
+            this.unbind(type);
+        }
     }
 });

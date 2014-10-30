@@ -30,17 +30,15 @@ var Sprite = Shade.extend({
     _onLoad: function() {
         radio.tuneOut(this._img, 'load', this._onLoad);
 
-        // if w/h set - use them, else use img w/h
+        if (!this._srcWidth && !this._srcWidth) {
+            this._srcWidth = this._img.width;
+            this._srcHeight = this._img.height;
+        }
+
         if (!this._width && !this._height) {
             this._width = this._img.width;
             this._height = this._img.height;
-            // TODO can we assume that srcW & srcH will be the same as w & h in this case?
-            this._srcWidth = this._width;
-            this._srcHeight = this._height;
         }
-
-        // set half w/h
-        this.scale(this._scaling);
 
         radio.broadcast('entityready', {
             entity: this

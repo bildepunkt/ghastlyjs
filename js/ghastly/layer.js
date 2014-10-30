@@ -42,8 +42,10 @@ var Layer = protos.create({
         var len = this.entities.length;
         var i;
 
+        // need to loop to get index... :/
         for (i = 0; i < len; i += 1) {
-            if (entity._uid === this.entities[i]._uid) {
+            if (entity._uid === this.entities[i].entity._uid) {
+                this.entities[i].entity.destroy();
                 this.entities[i] = null;
                 this.entities.splice(i, 1);
                 break;

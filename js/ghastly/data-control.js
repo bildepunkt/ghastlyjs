@@ -18,17 +18,37 @@ var dataControl = {
             name: entityName,
             entity: new dataEntity.type()
         };
-        var setupProp;
 
-        for(setupProp in dataEntity.setup) {
-            if (typeof entityObject.entity[setupProp] === 'function') {
-                entityObject.entity[setupProp](dataEntity.setup[setupProp]);
-            } else {
-                throw new Error(entityName + ' has no method called ' + setupProp);
-            }
+        if (dataEntity.setup.hasOwnProperty('x')) {
+            entityObject.entity.x(dataEntity.setup.x);
+        }
+
+        if (dataEntity.setup.hasOwnProperty('y')) {
+            entityObject.entity.y(dataEntity.setup.y);
+        }
+
+        if (dataEntity.setup.hasOwnProperty('width')) {
+            entityObject.entity.width(dataEntity.setup.width);
+        }
+
+        if (dataEntity.setup.hasOwnProperty('height')) {
+            entityObject.entity.height(dataEntity.setup.height);
+        }
+
+        if (dataEntity.setup.hasOwnProperty('srcWidth')) {
+            entityObject.entity.srcWidth(dataEntity.setup.srcWidth);
+        }
+
+        if (dataEntity.setup.hasOwnProperty('srcHeight')) {
+            entityObject.entity.srcHeight(dataEntity.setup.srcHeight);
+        }
+
+        if (dataEntity.setup.hasOwnProperty('src')) {
+            entityObject.entity.setImage(dataEntity.setup.src);
         }
 
         layer.entities.push(entityObject);
+
     },
 
     // first step in preparing data
