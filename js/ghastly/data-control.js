@@ -93,13 +93,13 @@ var dataControl = {
                 this.parseEntity(parsed.layers[layer], data.layers[layer].entities[entityIndex]);
 
                 // if not yet found/converted and name is a match
-                if (typeof parsed.scroll.trigger === 'string' &&
+                if (parsed.scroll && typeof parsed.scroll.trigger === 'string' &&
                     parsed.layers[layer].entities[entityIndex].name == parsed.scroll.trigger)
                 {
                     parsed.scroll.trigger = parsed.layers[layer].entities[entityIndex].entity;
                 }
 
-                if (typeof parsed.scroll.base === 'string' &&
+                if (parsed.scroll && typeof parsed.scroll.base === 'string' &&
                     parsed.layers[layer].entities[entityIndex].name == parsed.scroll.base)
                 {
                     parsed.scroll.base = parsed.layers[layer].entities[entityIndex].entity;

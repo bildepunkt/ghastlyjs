@@ -10,10 +10,10 @@ var levelData = {
         trigger: 'player',
         base: 'bg',
         regions: {
-            left: 100,
-            right: 700,
-            top: 100,
-            bottom: 500
+            left: 200,
+            right: 760,
+            top: 200,
+            bottom: 400
         }
     },
     layers: {
@@ -26,11 +26,9 @@ var levelData = {
                     setup: {
                         x: 0,
                         y: 0,
-                        setImage: 'img/Fire.png',
+                        src: 'img/Fire.png',
                         width: 1200,
-                        height: 1200,
-                        srcWidth: 800,
-                        srcHeight: 600
+                        height: 1200
                     }
                 }
             ]
@@ -44,37 +42,25 @@ var levelData = {
                     setup: {
                         x: 512,
                         y: 32,
-                        setImage: 'img/Player.png',
-                        width: 32,
-                        height: 32,
-                        srcWidth: 32,
-                        srcHeight: 32
+                        src: 'img/Player.png'
                     }
                 },
                 {
                     name: 'ghost',
                     type: Sprite,
                     setup: {
-                        x: 128,
+                        x: 256,
                         y: 32,
-                        setImage: 'img/Ghost.png',
-                        width: 32,
-                        height: 32,
-                        srcWidth: 32,
-                        srcHeight: 32
+                        src: 'img/Ghost.png'
                     }
                 },
                 {
                     name: 'baddie',
                     type: Sprite,
                     setup: {
-                        x: 192,
+                        x: 512,
                         y: 32,
-                        setImage: 'img/Baddie1.png',
-                        width: 32,
-                        height: 32,
-                        srcWidth: 32,
-                        srcHeight: 32
+                        src: 'img/Baddie1.png'
                     }
                 }
             ]

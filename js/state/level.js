@@ -1,4 +1,4 @@
-var levelState = State.extend({
+var LevelState = State.extend({
     _protosName: 'levelstate',
 
     init: function(data) {
@@ -12,9 +12,9 @@ var levelState = State.extend({
     },
 
     onPlayerMD: function(e) {
-        if (e.offsetX < this.player.x()) {
+        if (e.pageX < this.player.x()) {
             this.player.movingLt = true;
-        } else if (e.offsetX > this.player.x()) {
+        } else if (e.pageX > this.player.x()) {
             this.player.movingRt = true;
         }
     },

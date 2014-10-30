@@ -30,8 +30,16 @@ var Shade = protos.create({
         if (typeof n === 'number') {
             this[key] = n;
         // matches '+=n' or '-=n' or '+=n.n'
-        } else if (/^\+|\-\=[0-9\.]+$/.test(n)) {
-            this[key] += parseFloat(n.match(/[0-9\.]+/), 10);
+        } else if (/^\+|\-|\/|\*\=[0-9\.]+$/.test(n)) {
+            if        (/^\+\=[0-9\.]+$/.test(n)) {
+                this[key] += parseFloat(n.match(/[0-9\.]+/), 10);
+            } else if (/^\-\=[0-9\.]+$/.test(n)) {
+                this[key] -= parseFloat(n.match(/[0-9\.]+/), 10);
+            } else if (/^\/\=[0-9\.]+$/.test(n)) {
+                this[key] /= parseFloat(n.match(/[0-9\.]+/), 10);
+            } else if (/^\*\=[0-9\.]+$/.test(n)) {
+                this[key] *= parseFloat(n.match(/[0-9\.]+/), 10);
+            }
         }
     },
 
